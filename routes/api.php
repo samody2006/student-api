@@ -24,4 +24,12 @@ Route::put('students/{id}', 'ApiController@updateStudent');
 Route::delete('students/{id}','ApiController@deleteStudent');
 
 
-
+Route::get('/login','ApiController@accessToken');
+Route::group(['middleware' => ['web','auth:api']], function()
+{
+   Route::post('/todo/','ApiController@store');
+   Route::get('/todo/','ApiController@index');
+   Route::get('/todo/{todo}','ApiController@show');
+   Route::put('/todo/{todo}','ApiController@update');
+   Route::delete('/todo/{todo}','ApiController@destroy');
+});
